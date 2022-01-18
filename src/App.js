@@ -28,12 +28,16 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    setIsLoading(true);
-    getPlacesData(type, bounds.sw, bounds.ne).then((result) => {
-      setPlaces(result);
-      setIsLoading(false);
-      setFilteredPlaces([]);
-    });
+    if (bounds.sw && bounds.ne) {
+      setIsLoading(true);
+      getPlacesData(type, bounds.sw, bounds.ne).then((result) => {
+        setPlaces(
+          result?.filter((place) => place.name && place.num_reviews > 0)
+        );
+        setIsLoading(false);
+        setFilteredPlaces([]);
+      });
+    }
   }, [coordinates, bounds, type]);
 
   useEffect(() => {
@@ -44,7 +48,7 @@ const App = () => {
   return (
     <>
       <CssBaseline />
-      <Header />
+      <Header setCoordinates={setCoordinates} />
       <Grid container spacing={3} style={{ width: "100%" }}>
         <Grid item xs={12} md={4}>
           <List
