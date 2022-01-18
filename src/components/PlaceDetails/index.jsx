@@ -20,10 +20,10 @@ const PlaceDetails = ({ place, selected, refProp }) => {
   const classes = useStyles();
 
   if (selected)
-    refProp?.current?.scrollIntoView({ behaviour: "smooth", block: "start" });
+    refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   return (
-    <Card elevation={3}>
+    <Card elevation={3} ref={refProp}>
       <CardMedia
         style={{ height: 350 }}
         image={
